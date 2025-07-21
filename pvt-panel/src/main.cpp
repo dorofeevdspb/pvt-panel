@@ -31,8 +31,8 @@ void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map) {
 void my_touch_read(lv_indev_t *indev, lv_indev_data_t *data) {
   if (touch.touched()) {
     TS_Point p = touch.getPoint();
-    data->point.x = map(p.x, 200, 3700, 0, 240);
-    data->point.y = map(p.y, 300, 3900, 0, 320);
+    data->point.x = map(p.x, 270, 3788, 0, 240);    
+    data->point.y = map(p.y, 480, 3783, 0, 320);
     data->state = LV_INDEV_STATE_PRESSED;
     Serial.printf("Touch: x=%d y=%d\n", data->point.x, data->point.y);
   } else {
@@ -74,7 +74,7 @@ void setup() {
   lv_display_set_flush_cb(disp, my_disp_flush);
   lv_display_set_draw_buffers(disp, &draw_buf, NULL);
 
-  lv_display_set_rotation(disp, LV_DISPLAY_ROTATION_90); // поворот дисплея
+  lv_display_set_rotation(disp, LV_DISPLAY_ROTATION_90); // поворот дисплея 
 
   lv_indev_t *indev = lv_indev_create();
   lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);
