@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 #include <TFT_eSPI.h>
 #include <XPT2046_Touchscreen.h>
@@ -37,10 +36,14 @@ void my_touch_read(lv_indev_t *indev, lv_indev_data_t *data)
     if (touch.touched())
       {
         TS_Point p = touch.getPoint();
-        data->point.x = map(p.x, 270, 3788, 0, 240);    
-        data->point.y = map(p.y, 480, 3783, 0, 320);
+        // После поворота экрана LVGL оси меняются местами:
+        // x LVGL = y сенсора, y LVGL = x сенсора
+        // Диапазоны калибровки подбираются экспериментально
+        data->point.x = map(p.y, 600, 3700, 0, 240); // LVGL x (ширина)
+        data->point.y = map(p.x, 420, 3788, 0, 320); // LVGL y (высота)
+        // Для отладки выводим координаты касания и состояние
         data->state = LV_INDEV_STATE_PRESSED;
-        Serial.printf("Touch: x=%d y=%d\n", data->point.x, data->point.y);
+        //Serial.printf("LVGL touch: x=%d y=%d state=%d\n", data->point.x, data->point.y, data->state);
       }
     else
       {
@@ -84,34 +87,46 @@ void setup()
     lv_display_t *disp = lv_display_create(240, 320);
     lv_display_set_flush_cb(disp, my_disp_flush);
     lv_display_set_draw_buffers(disp, &draw_buf, NULL);
-
     lv_display_set_rotation(disp, LV_DISPLAY_ROTATION_90); // поворот дисплея 
+    // Делаем дисплей дефолтным!
+    lv_display_set_default(disp);
 
     lv_indev_t *indev = lv_indev_create();
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);
     lv_indev_set_read_cb(indev, my_touch_read);
 
     // Кнопка
+    // Создаём кнопку на активном экране
     lv_obj_t *btn = lv_button_create(lv_screen_active());
+    // Важно: сначала задаём размер, потом выравнивание
     lv_obj_set_size(btn, 120, 60);
-    lv_obj_center(btn);
+    lv_obj_align(btn, LV_ALIGN_CENTER, 0, 0);
+    // Устанавливаем цвет фона кнопки
     lv_obj_set_style_bg_color(btn, lv_color_hex(0xFF0000), LV_PART_MAIN);
+    // Добавляем обработчики событий
     lv_obj_add_event_cb(btn, btn_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(btn, btn_event_cb, LV_EVENT_PRESSED, NULL); // Для теста
 
+    // Добавляем текст на кнопку
     lv_obj_t *label = lv_label_create(btn);
     lv_label_set_text(label, "TOUCH");
-    lv_obj_center(label);
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
+    // Даем LVGL время на обработку размеров
+    lv_timer_handler();
+    delay(10);
+
+    // Получаем и выводим координаты и размеры кнопки
+    lv_coord_t btn_x = lv_obj_get_x(btn);
+    lv_coord_t btn_y = lv_obj_get_y(btn);
+    Serial.printf("Button pos: x=%d y=%d w=%d h=%d\n", btn_x, btn_y, lv_obj_get_width(btn), lv_obj_get_height(btn));
   }
 
-void loop()
-  {
+static uint32_t lastTick = 0;
+void loop() 
+{
+    lv_tick_inc(millis() - lastTick);
+    lastTick = millis();
     lv_timer_handler();
     delay(5);
-
-    if (touch.touched())
-    {
-      TS_Point p = touch.getPoint();
-      Serial.printf("Raw: x=%d y=%d\n", p.x, p.y);
-    }
-
-  }
+}
