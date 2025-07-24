@@ -9,7 +9,7 @@
 диалог на русском.
 в коде очень подробные коментарии на русском языке
 hardware:
-  board: esp32_2432s028
+  board: esp32_2432s028Rv3
   version: cyd2usb
 
 ONLY LVGL 9.3.0
