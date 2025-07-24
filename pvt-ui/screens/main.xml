@@ -1,0 +1,14 @@
+<screen name="main">
+    <label name="led_label"
+           text="LED"
+           x="110"
+           y="120"
+           align="center"
+           font_size="20"/>
+    <switch name="main_switch"
+            x="160"
+            y="120"
+            align="center"
+            width="60"
+            height="30"/>
+</screen>
