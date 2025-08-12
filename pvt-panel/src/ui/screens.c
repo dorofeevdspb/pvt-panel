@@ -23,27 +23,36 @@ void create_screen_main() {
     {
         lv_obj_t *parent_obj = obj;
         {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            objects.obj0 = obj;
-            lv_obj_set_pos(obj, 116, 120);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_label_set_text(obj, "Hello, world!");
-        }
-        {
             lv_obj_t *obj = lv_button_create(parent_obj);
-            lv_obj_set_pos(obj, 75, 79);
-            lv_obj_set_size(obj, 172, 99);
+            lv_obj_set_pos(obj, 18, 23);
+            lv_obj_set_size(obj, 113, 75);
             {
                 lv_obj_t *parent_obj = obj;
                 {
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
+                    lv_obj_set_pos(obj, 1, 1);
                     lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
                     lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
                     lv_label_set_text(obj, "Button");
                 }
             }
+        }
+        {
+            lv_obj_t *obj = lv_checkbox_create(parent_obj);
+            lv_obj_set_pos(obj, 22, 120);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_checkbox_set_text(obj, "Checkbox");
+        }
+        {
+            lv_obj_t *obj = lv_slider_create(parent_obj);
+            lv_obj_set_pos(obj, 22, 166);
+            lv_obj_set_size(obj, 150, 10);
+            lv_slider_set_value(obj, 25, LV_ANIM_OFF);
+        }
+        {
+            lv_obj_t *obj = lv_switch_create(parent_obj);
+            lv_obj_set_pos(obj, 25, 195);
+            lv_obj_set_size(obj, 50, 25);
         }
     }
     
