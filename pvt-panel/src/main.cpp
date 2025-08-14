@@ -10,6 +10,8 @@ SPIClass touchSPI(HSPI);
 TFT_eSPI tft = TFT_eSPI();                 // дисплей
 XPT2046_Touchscreen touch(TOUCH_CS);       // тач
 
+
+
 /* ---------- буферы LVGL ---------- */
 #define BUF_LINES 24
 static lv_color_t buf1[240 * BUF_LINES];
@@ -56,7 +58,7 @@ void setup()
 
 
   //lv_obj_set_size(bg, 320, 240);                    // test
-  //lv_obj_set_style_bg_color(bg, lv_color_hex(0xFF0000), LV_PART_MAIN); // test
+  //lv_obj_set_style_bg_color(bg, lv_color_hex(0xF800), LV_PART_MAIN); // test
   //lv_obj_center(bg);                   // test                            
 
 // tft.fillScreen(TFT_RED);//test
@@ -66,6 +68,25 @@ void setup()
 // lv_obj_t *lbl = lv_label_create(lv_screen_active());
 // lv_label_set_text(lbl, "Hello LVGL");
 // lv_obj_center(lbl);
+
+
+//uint16_t red = 0xF800;   // RGB565: 11111 000000 00000
+//uint16_t green = 0x07E0; // RGB565: 00000 111111 00000
+//uint16_t blue = 0x001F;  // RGB565: 00000 000000 11111
+
+//tft.fillScreen(0xF800);  // должен быть **красный**
+//delay(5000);
+//tft.fillScreen(0x07E0);  // должен быть **зелёный**
+//delay(5000);
+//tft.fillScreen(0x001F);  // должен быть **синий**
+//delay(5000);
+
+//tft.fillScreen(TFT_RED);   // должен быть красный
+//delay(2000);
+//tft.fillScreen(TFT_GREEN); // зелёный
+//delay(2000);
+//tft.fillScreen(TFT_BLUE);  // синий
+//delay(2000);
 
 
 }
