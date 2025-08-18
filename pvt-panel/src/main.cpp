@@ -73,6 +73,7 @@ void setup()
 
     tft.begin();
     tft.setRotation(1);
+    tft.writecommand(0x20); // Включаем инверсию цветов
     pinMode(TFT_BL, OUTPUT);
     digitalWrite(TFT_BL, HIGH);
     touchSPI.begin(25, 39, 32, CS_PIN); // CLK, MISO, MOSI, CS
