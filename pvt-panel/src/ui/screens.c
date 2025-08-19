@@ -1,5 +1,7 @@
 #include <string.h>
 
+#include <string.h>
+
 #include "screens.h"
 #include "images.h"
 #include "fonts.h"
@@ -34,8 +36,6 @@ void create_screen_main() {
 
 void tick_screen_main() {
 }
-
-
 
 typedef void (*tick_screen_func_t)();
 tick_screen_func_t tick_screen_funcs[] = {
