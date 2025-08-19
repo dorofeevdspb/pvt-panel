@@ -5,7 +5,8 @@
 #include <SPI.h>
 
 
-#define CS_PIN 33
+
+#define CS_PIN 33   // смотри даташит CYD2USB bkb ESP32-2432S028 R3
 SPIClass touchSPI(HSPI);
 TFT_eSPI tft = TFT_eSPI();
 XPT2046_Touchscreen touch(CS_PIN);
