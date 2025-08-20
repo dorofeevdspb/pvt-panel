@@ -10,7 +10,7 @@
       "lvglVersion": "9.0",
       "extensions": [],
       "imports": [],
-      "flowSupport": true,
+      "flowSupport": false,
       "displayWidth": 320,
       "displayHeight": 240,
       "displayBorderRadius": 50,
@@ -116,7 +116,8 @@
       "connectionLines": [],
       "localVariables": [],
       "userProperties": [],
-      "name": "Go to"
+      "name": "Go to",
+      "implementationType": "native"
     }
   ],
   "userPages": [
