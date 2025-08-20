@@ -2,7 +2,7 @@ https://www.aliexpress.com/store/1102010846
 
 sunton
 
-esp32-2432s028 (cyd2usb)
+esp32-2432s028 R3 (cyd2usb)
 
 ch340c411415e48
 
