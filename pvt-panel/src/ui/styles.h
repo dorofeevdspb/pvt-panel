@@ -7,6 +7,11 @@
 extern "C" {
 #endif
 
+// Style: carrie
+lv_style_t *get_style_carrie_MAIN_DEFAULT();
+void add_style_carrie(lv_obj_t *obj);
+void remove_style_carrie(lv_obj_t *obj);
+
 
 
 #ifdef __cplusplus
