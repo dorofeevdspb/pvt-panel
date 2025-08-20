@@ -42,7 +42,7 @@ void my_touch_read(lv_indev_t *indev, lv_indev_data_t *data)
         // x LVGL = y сенсора, y LVGL = x сенсора
         // Диапазоны калибровки подбираются экспериментально
         data->point.x = map(p.y, 600, 3700, 0, 240); // LVGL x (ширина)
-        data->point.y = map(p.x, 420, 3788, 0, 320); // LVGL y (высота)
+        data->point.y = map(p.x, 420, 3788, 320, 0); // LVGL y (высота) так надо
   // Для отладки выводим координаты касания и состояние
   data->state = LV_INDEV_STATE_PRESSED;
       }
