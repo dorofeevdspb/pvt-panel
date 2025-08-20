@@ -12,39 +12,26 @@
 
 objects_t objects;
 lv_obj_t *tick_value_change_obj;
-uint32_t active_theme_index = 0;
 
 void create_screen_main() {
+    void *flowState = getFlowState(0, 0);
+    (void)flowState;
     lv_obj_t *obj = lv_obj_create(0);
     objects.main = obj;
     lv_obj_set_pos(obj, 0, 0);
     lv_obj_set_size(obj, 320, 240);
-    lv_obj_set_style_bg_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     {
         lv_obj_t *parent_obj = obj;
         {
-            lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.obj0 = obj;
-            lv_obj_set_pos(obj, 182, 37);
-            lv_obj_set_size(obj, 100, 50);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffff0000), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "R");
-                }
-            }
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 116, 59);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text(obj, "Hello, world!");
         }
         {
             lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.obj1 = obj;
-            lv_obj_set_pos(obj, 48, 37);
+            lv_obj_set_pos(obj, 197, 154);
             lv_obj_set_size(obj, 100, 50);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
             {
                 lv_obj_t *parent_obj = obj;
                 {
@@ -56,48 +43,19 @@ void create_screen_main() {
                 }
             }
         }
-        {
-            lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.obj2 = obj;
-            lv_obj_set_pos(obj, 48, 149);
-            lv_obj_set_size(obj, 100, 50);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xff00ff00), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "G");
-                }
-            }
-        }
-        {
-            lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.obj3 = obj;
-            lv_obj_set_pos(obj, 182, 149);
-            lv_obj_set_size(obj, 100, 50);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xff0000ff), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "B");
-                }
-            }
-        }
     }
     
     tick_screen_main();
 }
 
 void tick_screen_main() {
+    void *flowState = getFlowState(0, 0);
+    (void)flowState;
 }
 
+
+static const char *screen_names[] = { "Main" };
+static const char *object_names[] = { "main" };
 
 
 typedef void (*tick_screen_func_t)();
@@ -112,6 +70,9 @@ void tick_screen_by_id(enum ScreensEnum screenId) {
 }
 
 void create_screens() {
+    eez_flow_init_screen_names(screen_names, sizeof(screen_names) / sizeof(const char *));
+    eez_flow_init_object_names(object_names, sizeof(object_names) / sizeof(const char *));
+    
     lv_disp_t *dispp = lv_disp_get_default();
     lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
