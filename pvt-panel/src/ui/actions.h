@@ -7,6 +7,7 @@
 extern "C" {
 #endif
 
+extern void action_go_to(lv_event_t * e);
 
 
 #ifdef __cplusplus
