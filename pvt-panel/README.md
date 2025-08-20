@@ -15,3 +15,11 @@ abdddcb
 только lvgl9 
 
 platformio
+
+
+# eez-studio
+
+чтобы конвертить картинки - (Debian, EEZ-Studio appimage) 
+```sh
+python3 -m pip install --user --break-system-packages pypng==0.20220715.0 lz4
+```
