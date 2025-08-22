@@ -11,6 +11,8 @@
 
 void init_style_carrie_MAIN_DEFAULT(lv_style_t *style) {
     lv_style_set_bg_color(style, lv_color_hex(0xffffffff));
+    lv_style_set_text_color(style, lv_color_hex(0xffffffff));
+    lv_style_set_text_font(style, &lv_font_montserrat_16);
 };
 
 lv_style_t *get_style_carrie_MAIN_DEFAULT() {

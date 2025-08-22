@@ -11,10 +11,14 @@ typedef struct _objects_t {
     lv_obj_t *main;
     lv_obj_t *choose_mode_settings;
     lv_obj_t *variable_mode_settings;
+    lv_obj_t *info;
+    lv_obj_t *load;
     lv_obj_t *transfer_to_mode_status_;
     lv_obj_t *preset_mode;
     lv_obj_t *arrow_back_button_;
     lv_obj_t *obj0;
+    lv_obj_t *p_current;
+    lv_obj_t *summ_time;
     lv_obj_t *mode_status;
     lv_obj_t *alarm_attention;
     lv_obj_t *current_mode;
@@ -41,6 +45,8 @@ typedef struct _objects_t {
     lv_obj_t *button_check_mark;
     lv_obj_t *max_p_1;
     lv_obj_t *min_p_1;
+    lv_obj_t *obj3;
+    lv_obj_t *obj4;
 } objects_t;
 
 extern objects_t objects;
@@ -49,6 +55,8 @@ enum ScreensEnum {
     SCREEN_ID_MAIN = 1,
     SCREEN_ID_CHOOSE_MODE_SETTINGS = 2,
     SCREEN_ID_VARIABLE_MODE_SETTINGS = 3,
+    SCREEN_ID_INFO = 4,
+    SCREEN_ID_LOAD = 5,
 };
 
 void create_screen_main();
@@ -59,6 +67,12 @@ void tick_screen_choose_mode_settings();
 
 void create_screen_variable_mode_settings();
 void tick_screen_variable_mode_settings();
+
+void create_screen_info();
+void tick_screen_info();
+
+void create_screen_load();
+void tick_screen_load();
 
 void tick_screen_by_id(enum ScreensEnum screenId);
 void tick_screen(int screen_index);

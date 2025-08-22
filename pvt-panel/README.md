@@ -24,6 +24,9 @@ platformio
 python3 -m pip install --user --break-system-packages pypng==0.20220715.0 lz4
 ```
 
+
+
+```
 ---
 config:
   theme: redux
@@ -32,3 +35,9 @@ flowchart TD
     A(["Start"]) --> B{"Decision"}
     B --> C["Option A"] & D["Option B"]
     B --> n1["Untitled Node"]
+
+```
+
+
+
+
