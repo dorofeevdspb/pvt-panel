@@ -35,6 +35,17 @@ static void event_handler_cb_choose_mode_settings_preset_mode(lv_event_t *e) {
     }
 }
 
+static void event_handler_cb_variable_mode_settings_arrow_back_button_(lv_event_t *e) {
+    lv_event_code_t event = lv_event_get_code(e);
+    void *flowState = lv_event_get_user_data(e);
+    (void)flowState;
+    
+    if (event == LV_EVENT_CLICKED) {
+        e->user_data = (void *)0;
+        flowPropagateValueLVGLEvent(flowState, 12, 0, e);
+    }
+}
+
 void create_screen_main() {
     void *flowState = getFlowState(0, 0);
     (void)flowState;
@@ -240,91 +251,68 @@ void create_screen_variable_mode_settings() {
             lv_label_set_text(obj, "Variable Mode settings");
         }
         {
-            // Title Vacuum max
+            // Title Vacuum
             lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.title_vacuum_max = obj;
-            lv_obj_set_pos(obj, 29, 47);
-            lv_obj_set_size(obj, 64, 32);
+            objects.title_vacuum = obj;
+            lv_obj_set_pos(obj, 17, 47);
+            lv_obj_set_size(obj, 131, 16);
+            lv_obj_clear_flag(obj, LV_OBJ_FLAG_CLICKABLE);
             add_style_carrie(obj);
             lv_obj_set_style_bg_color(obj, lv_color_hex(0xff90d9f5), LV_PART_MAIN | LV_STATE_DEFAULT);
             {
                 lv_obj_t *parent_obj = obj;
                 {
-                    // Vacuum max
+                    // Vacuum mmhg
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.vacuum_max = obj;
+                    objects.vacuum_mmhg = obj;
                     lv_obj_set_pos(obj, 0, 0);
                     lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
                     lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
                     lv_obj_set_style_text_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "Vacuum\nmax");
+                    lv_label_set_text(obj, "Vacuum, mmHg");
                 }
             }
         }
         {
-            // Title vacuum min
-            lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.title_vacuum_min = obj;
-            lv_obj_set_pos(obj, 100, 47);
-            lv_obj_set_size(obj, 64, 32);
-            add_style_carrie(obj);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xff90d9f5), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj3 = obj;
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_obj_set_style_text_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "Vacuum\nmin");
-                }
-            }
+            // max P
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.max_p = obj;
+            lv_obj_set_pos(obj, 22, 72);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text(obj, "max");
         }
         {
-            // title time max
-            lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.title_time_max = obj;
-            lv_obj_set_pos(obj, 199, 47);
-            lv_obj_set_size(obj, 39, 32);
-            add_style_carrie(obj);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xff90d9f5), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj4 = obj;
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_obj_set_style_text_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "time\nmax");
-                }
-            }
+            // min P
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.min_p = obj;
+            lv_obj_set_pos(obj, 93, 72);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text(obj, "min");
         }
         {
-            // title time min
+            // Title Time
             lv_obj_t *obj = lv_button_create(parent_obj);
-            objects.title_time_min = obj;
-            lv_obj_set_pos(obj, 252, 47);
-            lv_obj_set_size(obj, 39, 32);
+            objects.title_time = obj;
+            lv_obj_set_pos(obj, 171, 47);
+            lv_obj_set_size(obj, 121, 16);
+            lv_obj_clear_flag(obj, LV_OBJ_FLAG_CLICKABLE);
             add_style_carrie(obj);
             lv_obj_set_style_bg_color(obj, lv_color_hex(0xff90d9f5), LV_PART_MAIN | LV_STATE_DEFAULT);
             {
                 lv_obj_t *parent_obj = obj;
                 {
+                    // Time minutes
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj5 = obj;
+                    objects.time_minutes = obj;
                     lv_obj_set_pos(obj, 0, 0);
                     lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
                     lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
                     lv_obj_set_style_text_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "time\nmin");
+                    lv_label_set_text(obj, "Time, minutes");
                 }
             }
         }
@@ -332,8 +320,8 @@ void create_screen_variable_mode_settings() {
             // roller vacuum max
             lv_obj_t *obj = lv_roller_create(parent_obj);
             objects.roller_vacuum_max = obj;
-            lv_obj_set_pos(obj, 40, 104);
-            lv_obj_set_size(obj, 43, 89);
+            lv_obj_set_pos(obj, 22, 104);
+            lv_obj_set_size(obj, 40, 89);
             lv_roller_set_options(obj, "199\n200\n201", LV_ROLLER_MODE_NORMAL);
             lv_roller_set_selected(obj, 1, LV_ANIM_OFF);
             lv_obj_set_style_transform_scale_x(obj, 256, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -345,8 +333,8 @@ void create_screen_variable_mode_settings() {
             // roller vacuum min
             lv_obj_t *obj = lv_roller_create(parent_obj);
             objects.roller_vacuum_min = obj;
-            lv_obj_set_pos(obj, 111, 104);
-            lv_obj_set_size(obj, 43, 89);
+            lv_obj_set_pos(obj, 88, 104);
+            lv_obj_set_size(obj, 40, 89);
             lv_roller_set_options(obj, "49\n50\n51", LV_ROLLER_MODE_NORMAL);
             lv_roller_set_selected(obj, 1, LV_ANIM_OFF);
             lv_obj_set_style_transform_scale_x(obj, 256, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -357,8 +345,8 @@ void create_screen_variable_mode_settings() {
             // roller time max
             lv_obj_t *obj = lv_roller_create(parent_obj);
             objects.roller_time_max = obj;
-            lv_obj_set_pos(obj, 199, 104);
-            lv_obj_set_size(obj, 39, 89);
+            lv_obj_set_pos(obj, 184, 104);
+            lv_obj_set_size(obj, 40, 89);
             lv_roller_set_options(obj, "11\n10\n9", LV_ROLLER_MODE_NORMAL);
             lv_roller_set_selected(obj, 1, LV_ANIM_OFF);
             lv_obj_set_style_transform_scale_x(obj, 256, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -370,7 +358,7 @@ void create_screen_variable_mode_settings() {
             lv_obj_t *obj = lv_roller_create(parent_obj);
             objects.roller_time_min = obj;
             lv_obj_set_pos(obj, 252, 104);
-            lv_obj_set_size(obj, 39, 89);
+            lv_obj_set_size(obj, 40, 89);
             lv_roller_set_options(obj, "3\n4\n5", LV_ROLLER_MODE_NORMAL);
             lv_roller_set_selected(obj, 1, LV_ANIM_OFF);
             lv_obj_set_style_transform_scale_x(obj, 256, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -383,6 +371,7 @@ void create_screen_variable_mode_settings() {
             objects.arrow_back_button_ = obj;
             lv_obj_set_pos(obj, 214, 210);
             lv_obj_set_size(obj, 24, 23);
+            lv_obj_add_event_cb(obj, event_handler_cb_variable_mode_settings_arrow_back_button_, LV_EVENT_ALL, flowState);
             lv_obj_set_style_text_font(obj, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_EDITED);
             lv_obj_set_style_shadow_color(obj, lv_color_hex(0xff000000), LV_PART_MAIN | LV_STATE_DEFAULT);
             {
@@ -394,7 +383,7 @@ void create_screen_variable_mode_settings() {
                     lv_obj_set_pos(obj, 0, 0);
                     lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
                     lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text(obj, "");
+                    lv_label_set_text(obj, "<");
                 }
             }
         }
@@ -419,6 +408,24 @@ void create_screen_variable_mode_settings() {
                 }
             }
         }
+        {
+            // max P_1
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.max_p_1 = obj;
+            lv_obj_set_pos(obj, 184, 72);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text(obj, "max");
+        }
+        {
+            // min P_1
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.min_p_1 = obj;
+            lv_obj_set_pos(obj, 258, 72);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text(obj, "min");
+        }
     }
     
     tick_screen_variable_mode_settings();
@@ -434,7 +441,7 @@ extern void add_style(lv_obj_t *obj, int32_t styleIndex);
 extern void remove_style(lv_obj_t *obj, int32_t styleIndex);
 
 static const char *screen_names[] = { "Main", "Choose Mode settings", "Variable mode settings" };
-static const char *object_names[] = { "main", "choose_mode_settings", "variable_mode_settings", "transfer_to_mode_status_", "preset_mode", "obj0", "mode_status", "alarm_attention", "current_mode", "obj1", "timer", "obj2", "battery_indicator", "sound_indicator", "history_journal_button", "history_button", "variable_mode_settings_page", "title_vacuum_max", "vacuum_max", "title_vacuum_min", "obj3", "title_time_max", "obj4", "title_time_min", "obj5", "roller_vacuum_max", "roller_vacuum_min", "roller_time_max", "roller_time_min", "arrow_back_button_", "arrow_back", "check_mark_button", "button_check_mark" };
+static const char *object_names[] = { "main", "choose_mode_settings", "variable_mode_settings", "transfer_to_mode_status_", "preset_mode", "arrow_back_button_", "obj0", "mode_status", "alarm_attention", "current_mode", "obj1", "timer", "obj2", "battery_indicator", "sound_indicator", "history_journal_button", "history_button", "variable_mode_settings_page", "title_vacuum", "vacuum_mmhg", "max_p", "min_p", "title_time", "time_minutes", "roller_vacuum_max", "roller_vacuum_min", "roller_time_max", "roller_time_min", "arrow_back", "check_mark_button", "button_check_mark", "max_p_1", "min_p_1" };
 static const char *style_names[] = { "carrie" };
 
 
