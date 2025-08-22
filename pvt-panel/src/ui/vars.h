@@ -10,12 +10,18 @@ extern "C" {
 
 // enum declarations
 
-
+typedef enum {
+    UserRole_Guest = 0,
+    UserRole_Member = 1,
+    UserRole_Admin = 2
+} UserRole;
 
 // Flow global variables
 
 enum FlowGlobalVariables {
-    FLOW_GLOBAL_VARIABLE_NONE
+    FLOW_GLOBAL_VARIABLE_USER_IDX = 0,
+    FLOW_GLOBAL_VARIABLE_USER_NAMES = 1,
+    FLOW_GLOBAL_VARIABLE_USERS = 2
 };
 
 // Native global variables
