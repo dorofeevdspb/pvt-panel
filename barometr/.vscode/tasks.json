@@ -1,0 +1,61 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build (PIO)",
+			"type": "shell",
+			"command": "pio run",
+			"group": "build",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"options": {
+				"env": {
+					"PATH": "${env:HOME}/.local/bin:${env:PATH}"
+				}
+			}
+		},
+		{
+			"label": "Upload PIO (uno)",
+			"type": "shell",
+			"command": "pio run --target upload",
+			"args": [],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Upload (avrdude usbasp)",
+			"type": "shell",
+			"dependsOn": [
+				"Build (PIO)"
+			],
+			"command": "avrdude -c usbasp -p m328p -U flash:w:.pio/build/uno/firmware.hex:i",
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Upload (avrdude usbasp slow)",
+			"type": "shell",
+			"dependsOn": [
+				"Build (PIO)"
+			],
+			"command": "avrdude -c usbasp -B10 -p m328p -U flash:w:.pio/build/uno/firmware.hex:i",
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Serial Monitor (PIO)",
+			"type": "shell",
+			"command": "pio device monitor -b 115200",
+			"group": "test",
+			"problemMatcher": [],
+			"options": {
+				"env": {
+					"PATH": "${env:HOME}/.local/bin:${env:PATH}"
+				}
+			}
+		}
+	]
+}
